@@ -1,0 +1,135 @@
+<div class="abrir-modal animacion fadeIn" *ngIf="modalHeader.modal">
+    <div class="modal" tabindex="-1" style="display:block">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{titulo}}</h5>
+                    <button (click)="cerrarModalHeader()" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--TEMPLATE-->
+                    <form #formpresentacion="ngForm">
+                        <div class="row mb-3">
+                            <label for="nombre" class="col-form-label col-sm-3 text-font" style="color: black;">Nombre y
+                                Apellido</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" [(ngModel)]="presentacion.nombre" name="nombre"
+                                    required minlength="4" #nombre="ngModel" />
+                                <div class="alert alert-danger"
+                                    *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                    <div *ngIf="nombre.errors.required">
+                                        El nombre y el apellido no debe estar vacio
+                                    </div>
+                                    <div *ngIf="nombre.errors.minlength">
+                                        El Nombre y el Apellido debe tener al menos 4 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="profesion" class="col-form-label col-sm-3 text-font"
+                                style="color: black;">Profesion</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" [(ngModel)]="presentacion.titulo"
+                                    name="profesion" required minlength="5" #profesion="ngModel" />
+                                <div class="alert alert-danger"
+                                    *ngIf="profesion.invalid && (profesion.dirty || profesion.touched)">
+                                    <div *ngIf="profesion.errors.required">
+                                        La profesion no debe estar vacia
+                                    </div>
+                                    <div *ngIf="profesion.errors.minlength">
+                                        La profesion debe tener al menos 5 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Provincia-->
+                        <div class="row mb-3">
+                            <label for="ubicacion" class="col-form-label col-sm-3 text-font"
+                                style="color: black;">Provincia</label>
+                            <div class="col-sm-4">
+
+                                <select [compareWith]="comprarProvincia" type="text" class="form-control"
+                                    [(ngModel)]="presentacion.provincia" name="provincia">
+
+                                    <option *ngFor="let provincia of provincias" [ngValue]="provincia">
+                                        {{provincia.nombre}}</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="fotoPortada" class="col-form-label col-sm-2">Foto de Portada</label>
+                            <div class="col-lg-9">
+                                <div class="input-group">
+                                    <input (change)="selecionarFotoPortada($event)" type="file" class="form-control"
+                                        id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                                        aria-label="Upload">
+                                    <button (click)="subirFotoPortada()" class="btn btn-outline-secondary" type="button"
+                                        id="inputGroupFileAddon04">Subir foto</button>
+                                </div>
+                                <div *ngIf="progresoPortada > 0" class="progress mb-1 mt-3" style="height: 35px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        role="progressbar" attr.aria-valuenow="{{progreso}}" aria-valuemin="0"
+                                        aria-valuemax="100" [ngStyle]="{width:progresoPortada+'%'}">
+                                        {{progresoPortada}}%
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="fotoPerfil" class="col-form-label col-sm-2">Foto de Perfil</label>
+                            <div class="col-lg-9">
+                                <div class="input-group">
+                                    <input (change)="selecionarFotoPerfil($event)" type="file" class="form-control"
+                                        id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                                        aria-label="Upload">
+                                    <button (click)="subirFotoPerfil()" class="btn btn-outline-secondary" type="button"
+                                        id="inputGroupFileAddon04">Subir foto</button>
+                                </div>
+
+                                <div *ngIf="progresoPerfil > 0" class="progress mt-3" style="height: 35px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        role="progressbar" attr.aria-valuenow="{{progreso}}" aria-valuemin="0"
+                                        aria-valuemax="100" [ngStyle]="{width:progresoPerfil+'%'}">
+                                        {{progresoPerfil}}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="cvlink" class="col-form-label col-sm-3 text-font" style="color: black;">Link de
+                                Curriculm</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" [(ngModel)]="presentacion.linkCv" name="linkcv" required minlength="5" #linkcv="ngModel"/> 
+                                <div class="alert alert-danger" *ngIf="linkcv.invalid && (linkcv.dirty || linkcv.touched)">
+                                    <div *ngIf="linkcv.errors.required">
+                                        link es requerido
+                                    </div>
+                                    <div *ngIf="linkcv.errors.minlength">
+                                        link debe tener al menos 5 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!--TEMPLATE END-->
+                </div>
+                <div class="modal-footer">
+                    <button (click)="cerrarModalHeader()" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-primary" role="button" (click)="update()"
+                        [disabled]="!formpresentacion.form.valid">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

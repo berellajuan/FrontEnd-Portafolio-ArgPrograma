@@ -1,0 +1,19 @@
+<app-cartaform *ngIf="presentacion" [presentacion]="presentacion"></app-cartaform>
+<div class="card fondo-pres">
+  <div class="card-body">
+    <div class="col d-flex justify-content-between">
+      <h5 class="p-1 fs-4 fuente">Presentacion</h5>
+      <button class="btn" *ngIf="authService.tieneRol('ROLE_ADMIN')" (click)="abrirModalCarta(presentacion)">
+        <i class="bi bi-pencil-fill size-icon-other" style="font-size: 20px;"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="card-body text-secondary b alert alert-info" *ngIf="presentacion.carta == null">
+        No hay carta de presentacion cargada en el sistema
+      </div>
+      <p class="col-10 text-font fs-5">
+        {{presentacion.carta}}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="abrir-modal animacion fadeIn" *ngIf="modalProyect.modal">
+    <div class="modal" tabindex="-1" style="display:block">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{titulo}}</h5>
+                    <button (click)="cerrarModalProyecto()" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <ul class="alert alert-danger my-2" *ngIf="errores?.length > 0">
+                        <li class="ms-3" *ngFor="let err of errores">
+                            {{err}}
+                        </li>
+                    </ul>
+
+                    <form>
+                        <div class="row mb-3">
+                            <label for="titulo" class="col-form-label col-sm-3 text-font" style="color: black;">Nombre del proyecto</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" [(ngModel)]="proyect.nombre" name="nombre" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="descripcion" class="col-form-label col-sm-3 text-font" style="color: black;">Enlace al proyecto</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" [(ngModel)]="proyect.link" name="link" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="descripcion" class="col-form-label col-sm-3 text-font" style="color: black;">Breve Descripcion </label>
+                            <div class="col-sm-4">
+                                <textarea [(ngModel)]="proyect.descripcion" name="descripcion" id="" cols="40" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="descripcion" class="col-form-label col-sm-3 text-font" style="color: black;">Descripcion Completa</label>
+                            <div class="col-sm-4">
+                                <textarea [(ngModel)]="proyect.descripcionCompleta"  name="descripcionCompleta" id="" cols="40" rows="10"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="fecharealizado" class="col-form-label col-sm-3 text-font" style="color: black;">Fecha de realizacion</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" [(ngModel)]="proyect.fecha"
+                                    name="fecharealizado" />
+                            </div>
+                        </div>
+
+                        <div *ngIf="proyect?.imagen" class="col-sm-6 mb-3">
+                            <img class="img-thumbnail"
+                                src="{{urlBACKEND}}"
+                                alt="">
+                        </div>
+
+                        <div *ngIf="!proyect.id else elseFoto"></div>
+                        <ng-template #elseFoto>
+                            <div class="row mb-3">
+                                <div class="input-group">
+                                    <input (change)="seleccionarFoto($event)" type="file" class="form-control"
+                                        id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                                        aria-label="Upload">
+                                    <button (click)="subirFoto()" class="btn btn-outline-secondary" type="button"
+                                        id="inputGroupFileAddon04">Subir foto</button>
+                                </div>
+                            </div>
+
+                        </ng-template>
+                        <div *ngIf="progreso > 0" class="progress mb-3" style="height: 35px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100"
+                                [ngStyle]="{width:progreso+'%'}">
+                                {{progreso}}%
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div class="modal-footer">
+                        <button (click)="cerrarModalProyecto()" type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Cerrar</button>
+
+                        <button type="button" class="btn btn-primary" (click)="create()"
+                            *ngIf="!proyect.id else elseBlock">Agregar</button>
+                        <ng-template #elseBlock>
+                            <button type="button" class="btn btn-primary" (click)="update()">Guardar</button>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

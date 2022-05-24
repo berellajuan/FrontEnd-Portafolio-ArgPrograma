@@ -1,0 +1,66 @@
+.fuente{
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: 700;
+  color: white;
+}
+.number-font{
+  font-family: 'Bebas Neue', cursive;
+  color: azure;
+}
+
+.text-font{
+  font-family: 'Arimo', sans-serif;
+  color: white;
+}
+
+.titulo-color{
+  background-color: rgb(47, 46, 46);
+}
+
+.fondo-pres{
+
+  background: rgb(126,121,121);
+  background: linear-gradient(170deg, rgba(126,121,121,1) 0%, rgba(67,67,69,1) 100%);
+
+}
+
+.size-icon{
+    font-size: 25px;
+    color: #2D923E;
+}
+.size-icon:hover{
+  color: #11591D;
+}
+
+.size-icon-other{
+  font-size: 50px;
+  color: black;
+}
+.size-icon-other:hover{
+color: #11591D;
+}
+
+.abrir-modal{
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+  }
+   
+  .animacion{
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+  }
+   
+  .fadeIn{
+    animation-name: fadeIn;
+    -webkit-animation-name: fadeIn;
+  }
+   
+  @keyframes fadeIn {0% {opacity:0}to{opacity: 1}}
+  @-webkit-keyframes fadeIn {0% {opacity:0}to{opacity: 1}}

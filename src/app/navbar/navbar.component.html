@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark navbar-bg">
+    <div class="container-fluid">
+        <a class="navbar-brand m-auto" href="#">
+            <img class="img-brand" src="{{urlBACKEND}}/images/argprog.png">
+            <span class="fuente fs-6">#YoProgramo</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" routerLinkActive="active"></a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav navbar-right">
+                <div class="d-flex justify-content-evenly">
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" aria-current="page" href="https://github.com/berellajuan">
+                            <i class="bi bi-github size-icon-social"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" aria-current="page" href="https://www.linkedin.com/in/juancruzberella/"><i
+                                class="bi bi-linkedin size-icon-social"></i></a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" aria-current="page" href="https://www.instagram.com/juanberella/"><i class="bi bi-instagram size-icon-social"></i></a>
+                    </li>
+
+                    <div class="ms-5 me-5 mt-1">
+                        <li *ngIf="!authService.isAuthenticated()">
+                            <a (click)="modalLogin.abrirModal()" class="btn btn-success">
+                                <i class="bi bi-person-circle me-1"></i>
+                                Login</a>
+                        </li>
+
+                        <li *ngIf="authService.isAuthenticated()" class="dropdown">
+                            <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-check-fill me-1"> {{authService.usuario.nombre}}
+                                    {{authService.usuario.apellido}}</i>
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <button (click)="logout()" class="dropdown-item" type="submit">
+                                    <i class="bi bi-person-dash-fill me-1"></i>
+                                    Logout</button>
+                            </ul>
+                        </li>
+                    </div>
+
+                </div>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<app-login *ngIf="modalLogin.modal"></app-login>

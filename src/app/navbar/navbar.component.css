@@ -1,0 +1,23 @@
+.navbar-bg {
+    background-color: blue;
+}
+
+.img-brand {
+    max-width: 7rem;
+    max-height: 7rem;
+}
+
+.size-icon-social {
+    font-size: 1.3rem;
+}
+
+.color-dark {
+    color: black
+}
+
+.test{
+    Background-color: transparent;
+}
+.modal-content, .modal-header{
+    border:0px !important;
+}

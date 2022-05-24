@@ -1,0 +1,8 @@
+.size-icon{
+    font-size: 20px;
+}
+
+.bg-color{
+    background: rgb(48,49,56);
+background: linear-gradient(320deg, rgba(48,49,56,1) 0%, rgba(35,36,40,1) 100%);
+}

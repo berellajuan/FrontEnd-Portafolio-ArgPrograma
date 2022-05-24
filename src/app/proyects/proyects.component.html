@@ -1,0 +1,73 @@
+<app-formproyect *ngIf="proyectSeleccionado && authService.tieneRol('ROLE_ADMIN')" [proyect]="proyectSeleccionado">
+</app-formproyect>
+<div class="card fondo-pres mt-3">
+  <div class="card-body">
+    <div class="col d-flex justify-content-between">
+      <h5 class="p-1 fuente fs-4 text-uppercase">Proyectos</h5>
+      <button class="btn" *ngIf="authService.tieneRol('ROLE_ADMIN')" (click)="abrirModalProyectCreate()">
+        <i class="bi bi-plus-circle-fill size-icon"></i>
+      </button>
+    </div>
+    <div class="card-body text-secondary b alert alert-info" *ngIf="proyects?.length == 0">
+      No hay proyectos cargados en el sistema
+    </div>
+    <div *ngIf="proyects?.length > 0">
+      <div class="ms-5 mb-3" *ngFor="let proyect of proyects">
+        <div class="col d-flex justify-content-end">
+          <div class="">
+            <button class="btn" *ngIf="authService.tieneRol('ROLE_ADMIN')" (click)="abrirModalProyect(proyect)">
+              <i class="bi bi-pencil-fill size-icon-other" style="font-size: 20px"></i>
+            </button>
+          </div>
+          <div class="ms-4">
+            <button class="btn" *ngIf="authService.tieneRol('ROLE_ADMIN')" (click)="delete(proyect)">
+              <i class="bi bi-trash3-fill size-icon-other" style="font-size: 20px"></i>
+            </button>
+          </div>
+        </div>
+        <a href="{{proyect.link}}" class="card-link fuente fs-5 text-uppercase">{{ proyect.nombre }}</a>
+        <div class="row">
+          <div class="row">
+            <p class="text-font mt-3 fs-6">{{ proyect.descripcion }}</p>
+            <p class="text-font fs-6">
+              Fecha realizacion:
+              <span class="number-font fs-6">{{ proyect.fecha | date:"dd/MM/yyyy" }} </span>
+            </p>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success col-6" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Mas informacion
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title fuente fs-5 text-uppercase" style="color: black;" id="exampleModalLabel">
+                      {{ proyect.nombre }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="text-lg-start">{{proyect.descripcionCompleta}}</p>
+
+                    <img *ngIf="proyect?.imagen" src="{{proyect.imagen}}" class="img-fluid" alt="{{proyect.imagen}}">
+
+                    <img *ngIf="!proyect?.imagen" src="{{urlBACKEND}}/images/no_logo.png" class="img-fluid" alt="no_logo">
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

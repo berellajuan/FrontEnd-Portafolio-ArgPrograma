@@ -1,0 +1,45 @@
+<div class="abrir-modal animacion fadeIn" *ngIf="modalService.modal">
+    <div class="modal" tabindex="-1" style="display:block">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-lg">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-secundary">{{titulo}}</h5>
+                    <button (click)="cerrarModalCarta()" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--Temple-->
+                    <form #formcarta="ngForm">
+                        <div class="row mb-3">
+                            <label for="carta" class="col-form-label col-sm-3 text-font" style="color: black;">Carta de Presentacion</label>
+                            <div class="col-sm-4">
+
+                                <textarea [(ngModel)]="presentacion.carta"  name="carta" id="" cols="40" rows="10" required minlength="10" maxlength="255" #carta="ngModel" placeholder="Carta de presentacion, puede agregar toda la informacion que quiera mostrar"></textarea>
+
+                                <div class="alert alert-danger" *ngIf="carta.invalid && (carta.dirty || carta.touched)">
+                                    <div *ngIf="carta.errors.required">
+                                        La carta de presentacion no debe estar vacia
+                                    </div>
+                                    <div *ngIf="carta.errors.minlength">
+                                        La carta de presentacion debe tener como minimo 10 caracteres
+                                    </div>
+                                    <div *ngIf="carta.errors.maxlength">
+                                        La carta de presentacion debe tener como maximo 255 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!--Temple Fin-->
+                </div>
+                <div class="modal-footer">
+                    <button (click)="cerrarModalCarta()" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-primary" role="button" (click)="update()"
+                        [disabled]="!formcarta.form.valid">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<app-form  *ngIf="experienciaSeleccionada && autoService.tieneRol('ROLE_ADMIN')" [experiencia]="experienciaSeleccionada"></app-form>
+
+<div class="card bg-secondary mb-3">
+    <div class="card-header d-flex justify-content-between color border border-secondary">
+            <h5 class="p-1 fuente fs-4 text-uppercase">Experiencias</h5>
+            
+            <button class="btn" *ngIf="autoService.tieneRol('ROLE_ADMIN')" (click)="abrirModalExperienciaCreate()" sy><i class="bi bi-plus-circle-fill size-icon"></i></button>
+    </div>
+    <div class="card-body text-secondary b alert alert-info" *ngIf="experiencias?.length==0">
+      No hay experiencias cargadas en el sistema
+    </div>
+    <div class="card-body" *ngIf="experiencias?.length>0">
+        <div class="card bg-secondary mb-3" *ngFor="let experiencia of experiencias">
+          <!--Columna que se repite-->
+            <div class="row">
+              <div class="col-2"> 
+
+                <img *ngIf="experiencia?.logoEmpresa" align="left" class="img-fluid"  src="{{experiencia.logoEmpresa}}" alt="{{experiencia.logoEmpresa}}"/>
+
+                <img  *ngIf="!experiencia?.logoEmpresa" align="left" class="img-fluid" src="{{urlBACKEND}}/images/no_logo.png" class="img-fluid" alt="no_logo">
+
+              </div>
+              <div class="col-6">
+                <div class="card-body">
+                  <h5 class="card-title font-text fs-3">{{experiencia.titulo}}</h5>
+                  <p class="card-text text-font fs-6">{{experiencia.descripcion}}</p>
+                  <p class="card-text number-font fs-6">{{experiencia.fecha | date:"dd/MM/yyyy"}} -- {{experiencia.fechaFin | date:"dd/MM/yyyy"}}</p>
+                </div>
+              </div>
+              <div class="col-4 d-flex justify-content-end">
+                <div class="m-3" (click)="abrirModalExperiencia(experiencia)"> 
+                    <button class="btn" *ngIf="autoService.tieneRol('ROLE_ADMIN')">
+                        <i class="bi bi-pencil-fill size-icon-other" style="font-size: 20px;"></i>
+                    </button>
+                </div>
+                <div class="m-3">
+                     <button class="btn" *ngIf="autoService.tieneRol('ROLE_ADMIN')" (click)="delete(experiencia)">
+                         <i class="bi bi-trash3-fill size-icon-other" style="font-size: 20px;"></i>
+                    </button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <app-estudios></app-estudios>
+</div>

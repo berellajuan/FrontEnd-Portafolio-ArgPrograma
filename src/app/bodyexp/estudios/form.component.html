@@ -1,0 +1,83 @@
+<div class="abrir-modal animacion fadeIn" *ngIf="modalService.modal">
+    <div class="modal" tabindex="-1" style="display:block">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">{{ titulo }}</h5>
+            <button (click)="cerrarModalEducacion()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <ul class="alert alert-danger my-2" *ngIf="errores?.length > 0">
+                    <li class="ms-3" *ngFor="let err of errores">
+                            {{err}}
+                    </li>
+                </ul>
+                  <!--De aca para arriba mas adelante no servira-->
+                
+                      <form>
+                      <div class="row mb-3">
+                          <label for="titulo" class="col-form-label col-sm-3 text-font" style="color: black;">Nombre del Instituto</label>
+                          <div class="col-sm-4">
+                          <input type="text"  class="form-control" [(ngModel)]="educacion.titulo" name="titulo" />
+                          </div>
+                      </div>
+                
+                      <div class="row mb-3">
+                          <label for="descripcion" class="col-form-label col-sm-3 text-font" style="color: black;">Informacion adicional</label>
+                          <div class="col-sm-4">
+                        
+                            <textarea [(ngModel)]="educacion.descripcion"  name="descripcion" id="" cols="40" rows="10" placeholder="plan de estudio/aplicaciones utilizadas"></textarea>
+
+                          </div>
+                      </div>
+                
+                      <div class="row mb-3">
+                        <label for="fechaInicio" class="col-form-label col-sm-3 text-font" style="color: black;">Fecha Inicio</label>
+                        <div class="col-sm-4">
+                        <input type="date" class="form-control" [(ngModel)]="educacion.fecha" name="fechaInicio"/>
+                        </div>
+                    </div>
+                
+                    <div class="row mb-3">
+                        <label for="fechaFin" class="col-form-label col-sm-3 text-font" style="color: black;">Fecha de finalizacion</label>
+                        <div class="col-sm-4">
+                        <input type="date" class="form-control" [(ngModel)]="educacion.fechaFin" name="fechaFin"/>
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="!educacion.id else elseFoto"></div>
+                        <ng-template #elseFoto>
+                            <div class="row mb-3">
+                                <div class="input-group">
+                                    <input (change)="selecionarFoto($event)" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    <button (click)="subirFoto()" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Subir foto</button>
+                                </div>
+                            </div>
+                        </ng-template>
+                
+                        <div *ngIf="progreso > 0" class="progress mb-3" style="height: 35px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progreso+'%'}">
+                                {{progreso}}%
+                            </div>
+                        </div>
+                
+                      </form>
+
+            <div class="modal-footer">
+                <button (click)="cerrarModalEducacion()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+                <button type="button" class="btn btn-primary" (click)="create()" *ngIf="!educacion.id else elseBlock">Agregar</button>
+                <ng-template #elseBlock>
+                    <button type="button" class="btn btn-primary" (click)="update()">Guardar</button>
+                </ng-template>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

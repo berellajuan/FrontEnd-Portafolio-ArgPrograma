@@ -1,0 +1,52 @@
+<app-perfilform *ngIf="presentacion && authService.tieneRol('ROLE_ADMIN')" [presentacion]="presentacion">
+</app-perfilform>
+<div class="container rounded fondo-pres my-3 fuente">
+    <div class="d-flex flex-column bd-highlight">
+        <div class="p-2 bd-highlight">
+            <div class="fb-profile">
+                <img *ngIf="presentacion?.fotoPortada" align="left" class="img-fluid fb-image-lg rounded"
+                    src="{{ presentacion.fotoPortada }}" alt="{{ presentacion.fotoPortada }}" />
+
+                <img *ngIf="!presentacion?.fotoPortada" align="left" class="img-fluid fb-image-lg rounded"
+                    src="{{ urlBACKEND }}/images/no_portada.png" alt="no-portada" />
+
+                <img *ngIf="presentacion?.fotoPerfil" align="left"
+                    class="img-fluid fb-image-profile img-thumbnail rounded-circle" src="{{ presentacion.fotoPerfil }}"
+                    alt="{{ presentacion.fotoPerfil }}" />
+
+                <img *ngIf="!presentacion?.fotoPerfil" align="left"
+                    class="img-fluid fb-image-profile img-thumbnail rounded-circle"
+                    src="{{ urlBACKEND }}/images/no_perfil.png" alt="no-perfil" />
+            </div>
+        </div>
+        <div class="col d-flex justify-content-end me-5">
+            <div class="">
+                <button class="btn" *ngIf="authService.tieneRol('ROLE_ADMIN')" (click)="abrirModalHeader(presentacion)">
+                    <i class="bi bi-pencil-fill fs-3 size-icon-other" style="font-size: 20px"></i>
+                </button>
+            </div>
+        </div>
+        <div class="p-2 bd-highlight">
+            <div>
+                <h1 class="text-capitalize ms-1 fuente">{{ presentacion.nombre }}</h1>
+                <div class="d-flex justify-content-between">
+                    <h4 class="text-capitalize ms-3 fuente ">
+                        <i class="bi bi-pc-display me-1"></i>
+                        {{ presentacion.titulo }}
+                    </h4>
+
+                    <a href="{{presentacion.linkCv}}" target="_blank" class="btn btn-success me-2 fuente fs-5">Curriculum</a>
+
+                </div>
+                
+                <h5 class="ms-5 margen badge bg-success fs-6 text-wrap fw-bold">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    Provincia: {{ presentacion.provincia?.nombre }}
+                </h5>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+<app-presentacion class="container"></app-presentacion>
